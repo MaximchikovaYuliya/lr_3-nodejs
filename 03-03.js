@@ -19,7 +19,7 @@ http.createServer(function(req, resp) {
             }
         }
     } else {
-        const fname = '/index.html';
+        const fname = 'index.html';
         let file = fs.readFile(fname, (err, data) => {
             resp.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
             resp.end(data);
