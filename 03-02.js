@@ -8,12 +8,17 @@ let fact = (num) => {
 
 http.createServer(function(request, response) {
     let request_url = request.url;
+    let rc = JSON.stringify({k:0});
     if(url.parse(request_url).pathname === '/fact') {
-        const current_url = new URL(request_url);
-        const search_params = current_url.searchParams;
-        const k = search_params.get('k');
-        response.writeHead(200, {"Content-Type":"application/json; charset=utf-8"});
-        response.end(JSON.stringify({k:k, fact: fact(k)}));
+        if (typeof url.parse(request_url,true).query.k != "undefined"){
+            let k = parseInt(url.parse(request_url, true).query.k);
+            if (Number.isInteger(k)){
+                response.writeHead(200, {"Content-Type":"application/json; charset=utf-8"});
+                response.end(JSON.stringify({k:k, fact: fact(k)}));
+            }
+        }
+    } else {
+        response.end(rc);
     }
 }).listen(5000);
 
