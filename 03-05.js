@@ -5,7 +5,7 @@ const url = require("url");
 function fact(acc, num, callback) {
     if (num === 0) { callback(acc); }
     else {
-        process.nextTick(() => fact(acc * num, num - 1, callback));
+        setImmediate(() => fact(acc * num, num - 1, callback));
     }
 }
 
